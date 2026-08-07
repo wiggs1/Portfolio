@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Contact</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">My Portfolio</a>
+            <button class="nav-toggle" aria-label="Open navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container page-content">
+        <section>
+            <p class="eyebrow">Get in touch</p>
+            <h1>Contact</h1>
+            <p class="lead">I’m happy to discuss your next project. Reach out by email or send a quick message below.</p>
+        </section>
+        <section class="contact-grid">
+            <div>
+                <h2>Contact details</h2>
+                <p>Email: <a href="mailto:hello@example.com">hello@example.com</a></p>
+                <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                <p>Location: Remote / Anywhere</p>
+            </div>
+            <form class="contact-form">
+                <label>
+                    Name
+                    <input type="text" placeholder="Your name" required>
+                </label>
+                <label>
+                    Email
+                    <input type="email" placeholder="you@example.com" required>
+                </label>
+                <label>
+                    Message
+                    <textarea rows="5" placeholder="Tell me about your project"></textarea>
+                </label>
+                <button class="button button-primary" type="submit">Send message</button>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

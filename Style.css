@@ -1,0 +1,270 @@
+﻿:root {
+    color-scheme: light;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #182034;
+    background: #f7f9fc;
+    line-height: 1.6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f4fa 100%);
+}
+
+a {
+    color: #304ffe;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    width: min(1140px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(16, 24, 40, 0.08);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.brand {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-size: 1.15rem;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.nav-links a {
+    font-weight: 500;
+    color: #1f2937;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+    color: #0f172a;
+}
+
+.nav-toggle {
+    display: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 1.5rem;
+    height: 2px;
+    margin: 0.35rem 0;
+    background: #111827;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hero {
+    padding: clamp(3rem, 7vw, 6rem) 0 4rem;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #3b82f6;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    margin: 0 0 1rem;
+    line-height: 1.05;
+}
+
+.lead {
+    max-width: 44rem;
+    margin: 0 0 2rem;
+    color: #4b5563;
+    font-size: 1.05rem;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-weight: 600;
+}
+
+.button-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.button-secondary {
+    background: #ffffff;
+    color: #1f2937;
+    border-color: #d1d5db;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 4rem;
+}
+
+.features article,
+.project-card,
+.contact-form,
+.contact-grid > div {
+    background: white;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+}
+
+.features article h2,
+.project-card h2 {
+    margin-top: 0;
+}
+
+.page-content {
+    padding: 4rem 0;
+}
+
+.content-grid,
+.projects-grid,
+.contact-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.content-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-card p {
+    margin-bottom: 1.5rem;
+    color: #475569;
+}
+
+.contact-grid {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: start;
+}
+
+.contact-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.contact-form label {
+    display: grid;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: #111827;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.95rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.9rem;
+    background: #f8fafc;
+    font: inherit;
+}
+
+.contact-form button {
+    width: fit-content;
+}
+
+@media (max-width: 840px) {
+    .header-inner {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    .nav-links {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.85rem;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.25s ease;
+    }
+
+    .nav-links.open {
+        max-height: 240px;
+    }
+
+    .hero {
+        padding-top: 4rem;
+    }
+
+    .content-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .button {
+        width: 100%;
+    }
+}
