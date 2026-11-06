@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     color-scheme: light;
     font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: #182034;
@@ -13,12 +13,28 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background: linear-gradient(180deg, #ffffff 0%, #f0f4fa 100%);
+    /* Subtle repeating dot pattern layered over a blue gradient */
+    background-image: radial-gradient(circle at 1px 1px, rgba(16,24,40,0.02) 1px, transparent 1px),
+                      linear-gradient(180deg, #e6f0ff 0%, #dbeafe 50%, #e0f2fe 100%);
+    background-size: 20px 20px, auto;
+    background-repeat: repeat, no-repeat;
 }
+
+/* Optional: use a full-bleed background image instead of the pattern.
+   Place an image at assets/bg.jpg and uncomment the block below to enable.
+
+   body {
+       background-image: url('assets/bg.jpg'), linear-gradient(180deg, #e6f0ff 0%, #dbeafe 50%, #e0f2fe 100%);
+       background-size: cover, auto;
+       background-position: center center;
+   }
+
+*/
 
 a {
     color: #304ffe;
     text-decoration: none;
+    overflow-wrap: anywhere;
 }
 
 img {
@@ -35,9 +51,12 @@ img {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(16, 24, 40, 0.08);
+    /* glass effect with a subtle blue gradient to distinguish the nav */
+    background-image: linear-gradient(90deg, rgba(37,99,235,0.06), rgba(14,165,233,0.02)), radial-gradient(circle at 10% 10%, rgba(59,130,246,0.02), transparent 20%);
+    background-color: rgba(255, 255, 255, 0.90);
+    backdrop-filter: blur(10px) saturate(1.03);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
 }
 
 .header-inner {
@@ -54,6 +73,10 @@ img {
     font-size: 1.15rem;
 }
 
+.brand {
+    color: #0f172a;
+}
+
 .nav-links {
     display: flex;
     align-items: center;
@@ -66,6 +89,46 @@ img {
     transition: color 0.2s ease;
 }
 
+/* Nav link animations: underline grow, hover lift, and stagger reveal */
+.nav-links a {
+    position: relative;
+    padding-bottom: 6px;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 320ms cubic-bezier(.2,.9,.2,1), transform 320ms cubic-bezier(.2,.9,.2,1), color 180ms ease;
+}
+
+.nav-links.mounted a {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #60a5fa, #2563eb);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 260ms cubic-bezier(.2,.9,.2,1);
+    border-radius: 3px;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+    transform: translateY(-2px);
+    color: #0f172a;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after,
+.nav-links a.active::after {
+    transform: scaleX(1);
+}
+
 .nav-links a:hover,
 .nav-links a:focus-visible {
     color: #0f172a;
@@ -73,6 +136,8 @@ img {
 
 .nav-toggle {
     display: none;
+    flex-direction: column;
+    justify-content: center;
     border: 0;
     background: transparent;
     cursor: pointer;
@@ -86,6 +151,19 @@ img {
     margin: 0.35rem 0;
     background: #111827;
     transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Turn the hamburger into an X when the menu is open */
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(calc(0.7rem + 2px)) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(calc(-0.7rem - 2px)) rotate(-45deg);
 }
 
 .hero {
@@ -126,7 +204,9 @@ h1 {
     padding: 0.9rem 1.5rem;
     border-radius: 999px;
     border: 1px solid transparent;
+    font: inherit;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .button-primary {
@@ -142,7 +222,7 @@ h1 {
 
 .features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
     gap: 1rem;
     margin-bottom: 4rem;
 }
@@ -179,7 +259,7 @@ h1 {
 }
 
 .projects-grid {
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
 }
 
 .project-card {
@@ -191,6 +271,54 @@ h1 {
 .project-card p {
     margin-bottom: 1.5rem;
     color: #475569;
+}
+
+/* Entrance animation and hover lift for project cards */
+.project-card {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 480ms cubic-bezier(.2,.9,.2,1), transform 480ms cubic-bezier(.2,.9,.2,1);
+}
+
+.project-card.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (hover: hover) {
+    .project-card:hover,
+    .project-card:focus-within {
+        transform: translateY(-8px) scale(1.01);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    }
+}
+
+.project-card:focus-within {
+    outline: 2px solid rgba(59,130,246,0.15);
+}
+
+/* Mirror animations for the home page feature cards */
+.features article {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 480ms cubic-bezier(.2,.9,.2,1), transform 480ms cubic-bezier(.2,.9,.2,1);
+}
+
+.features article.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (hover: hover) {
+    .features article:hover,
+    .features article:focus-within {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.10);
+    }
+}
+
+.features article:focus-within {
+    outline: 2px solid rgba(59,130,246,0.10);
 }
 
 .contact-grid {
@@ -227,7 +355,8 @@ h1 {
 @media (max-width: 840px) {
     .header-inner {
         flex-wrap: wrap;
-        gap: 0.75rem;
+        row-gap: 0;
+        padding: 0.75rem 0;
     }
 
     .nav-toggle {
@@ -241,15 +370,20 @@ h1 {
         gap: 0.85rem;
         overflow: hidden;
         max-height: 0;
-        transition: max-height 0.25s ease;
+        transition: max-height 0.25s ease, padding 0.25s ease;
     }
 
     .nav-links.open {
         max-height: 240px;
+        padding: 0.75rem 0 0.5rem;
     }
 
-    .hero {
-        padding-top: 4rem;
+    .nav-links a {
+        padding: 0.25rem 0 6px;
+    }
+
+    .page-content {
+        padding: 2.5rem 0;
     }
 
     .content-grid,
@@ -264,7 +398,34 @@ h1 {
         align-items: stretch;
     }
 
-    .button {
+    .button,
+    .contact-form button {
         width: 100%;
+    }
+
+    .features article,
+    .project-card,
+    .contact-form,
+    .contact-grid > div {
+        padding: 1.25rem;
+        border-radius: 1rem;
+    }
+
+    .hero {
+        padding-bottom: 2.5rem;
+    }
+
+    .features {
+        margin-bottom: 2.5rem;
+    }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
     }
 }
